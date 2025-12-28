@@ -55,7 +55,6 @@ export default function Experience() {
             <div className="relative flex justify-between">
               {experiences.map((exp, i) => (
                 <div key={i} className="relative flex flex-col items-center">
-                  {/* Info bubble */}
                   <motion.div
                     initial={{ opacity: 0, y: 20, scale: 0.9, rotateZ: 0 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1, rotateZ: 2 }}
@@ -84,7 +83,6 @@ export default function Experience() {
                     }}
                     className="z-10 flex flex-col items-center cursor-pointer"
                   >
-                    {/* Check point */}
 
                     <div
                       className={cn(
@@ -105,7 +103,6 @@ export default function Experience() {
                       )}
                     </div>
 
-                    {/* Label */}
                     <span className="mt-4 text-sm text-secondary">
                       {exp.title}
                     </span>
@@ -116,10 +113,10 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* MOBILE */}
+        {/* Mobile Code */}
+
         <div className="block md:hidden w-full px-6">
           <div className="relative flex flex-col gap-30">
-            {/* vertical line */}
             <motion.div
               className="absolute left-27 top-1 w-1 h-[85%] bg-primary/40 rounded"
               initial={{ scaleY: 0 }}
@@ -138,7 +135,6 @@ export default function Experience() {
                 transition={{ delay: i * 0.15 }}
                 className="relative pl-12"
               >
-                {/* dot / icon */}
                 <div className="absolute left-20 top-1 h-15 w-15 rounded-full bg-background border border-primary/40 flex items-center justify-center">
                   {exp.image ? (
                     <div className="relative h-10 w-10">
@@ -154,7 +150,6 @@ export default function Experience() {
                   )}
                 </div>
 
-                {/* card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20, scale: 0.9, rotateZ: 0 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1, rotateZ: -2 }}

@@ -108,7 +108,7 @@ export default function Skills() {
                   mass: 0.6,
                 }}
               >
-                {/* Tooltip – controlled by parent hover */}
+              
                 <motion.div
                   variants={{
                     rest: { opacity: 0, y: 4, rotateZ: -4 },

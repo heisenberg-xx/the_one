@@ -105,9 +105,9 @@ const NavBar = () => {
           </ul>
         </nav>
 
-        {/* RIGHT SECTION */}
+        {/* right dummy div */}
         <div className="flex flex-1 md:justify-end justify-between sm:w-full items-center gap-4">
-          {/* SOCIAL ICONS (always visible) */}
+          {/* media icons */}
           <div className="flex flex-1 justify-center gap-3">
             {icons.map((icon) => (
               <motion.a
@@ -129,7 +129,7 @@ const NavBar = () => {
             ))}
           </div>
 
-          {/* HAMBURGER (mobile only) */}
+          {/* hamburger for mobile ) */}
           <Button
             className="md:hidden text-primary"
             variant="ghost"
@@ -140,7 +140,7 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* moBile meNu */}
       <AnimatePresence>
         {open && (
           <motion.div
