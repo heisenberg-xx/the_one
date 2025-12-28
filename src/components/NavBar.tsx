@@ -108,7 +108,7 @@ const NavBar = () => {
         {/* right dummy div */}
         <div className="flex flex-1 md:justify-end justify-between sm:w-full items-center gap-4">
           {/* media icons */}
-          <div className="flex flex-1 justify-center gap-3">
+          <div className="flex flex-1 justify-center  gap-3">
             {icons.map((icon) => (
               <motion.a
                 key={icon.href}
