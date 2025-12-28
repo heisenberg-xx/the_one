@@ -1,9 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import 'tailwind-scrollbar-hide/v4';
 
 :root {
   /* --primary: #8BAE66; */
-  --primary: #239ba7;
+  --primary: #73AF6F;
   --secondary: #efefef;
   --radius: 0.625rem;
   --background: #0c0c0c;

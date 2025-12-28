@@ -1,38 +1,40 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Link } from "react-scroll";
+import { Link, scrollSpy } from "react-scroll";
 import { cn } from "@/lib/utils";
+import { Menu, X } from "lucide-react";
+import { Button } from "./ui/button";
 
 const items = [
-  { label: "about", to: "about" },
-  { label: "experience", to: "experience" },
-  { label: "skills", to: "skills" },
-  { label: "works", to: "works" },
-  { label: "say hi", to: "say-hi" },
+  { label: "about", to: "about", spy: true },
+  { label: "experience", to: "experience", spy: true },
+  { label: "skills", to: "skills", spy: true },
+  { label: "works", to: "works", spy: true },
+  { label: "say hi", to: "say-hi", spy: true },
 ];
 
 const icons = [
   {
     href: "//www.linkedin.com/in/rajeshande2004/",
-    src: "/icons/linkedin.svg",
+    src: "/icons/media/linkedin.svg",
     alt: "LinkedIn",
-    size: 30,
+    size: 28,
   },
   {
     href: "https://github.com/heisenberg-xx",
-    src: "/icons/github.svg",
+    src: "/icons/media/github.svg",
     alt: "GitHub",
-    size: 30,
+    size: 28,
     className: "invert",
   },
   {
     href: "mailto:raajeshande@gmail.com",
-    src: "/icons/gmail.svg",
+    src: "/icons/media/gmail.svg",
     alt: "Gmail",
-    size: 27,
+    size: 26,
     className: "rounded-full",
   },
 ];
@@ -40,79 +42,133 @@ const icons = [
 const NavBar = () => {
   const [hovered, setHovered] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    scrollSpy.update();
+    setActive(null);
+  }, []);
 
   return (
-    <div className="sticky top-0 z-50  backdrop-blur-sm w-screen">
-      <div className="flex justify-center items-center py-3 h-16">
-        <div className="flex-1" />
-        <nav className="flex-1">
+    <div className="sticky top-0 z-50 w-screen backdrop-blur-sm">
+      <div className="flex h-16 items-center ">
+        {/* Left spacer */}
+        <div className="flex-1 md:flex hidden" />
+
+        {/* DESKTOP NAV */}
+        <nav className="hidden md:flex flex-1 justify-center">
           <ul
-            className="flex justify-around items-center"
+            className="flex items-center  gap-6"
             onMouseLeave={() => setHovered(null)}
           >
-            {items.map((item, i) => (
-              <li
-                key={item.to}
-                className={cn(
-                  active === item.to || hovered === item.to ? "text-primary font-semibold" : "",
-                  " group relative cursor-pointer text-md text-secondary hover:text-primary"
-                )}
-                onMouseEnter={() => setHovered(item.to)}
-              >
-                <Link
-                  to={item.to}
-                  smooth
-                  duration={700}
-                  offset={-120} // navbar height
-                  spy
-                  onClick={() => setHovered(item.to)}
-                  onSetActive={(id) => setActive(id)}
-                >
-                  {item.label}
-                </Link>
+            {items.map((item) => {
+              const isActive = hovered === item.to || active === item.to;
 
-                {(hovered === item.to || active === item.to) && (
-                  <motion.span
-                    layoutId="nav-underline"
+              return (
+                <li
+                  key={item.to}
+                  className="relative cursor-pointer px-3 py-1"
+                  onMouseEnter={() => setHovered(item.to)}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full bg-primary/10"
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+
+                  <Link
+                    to={item.to}
+                    smooth
+                    duration={700}
+                    offset={-120}
+                    spy={item.spy}
+                    onClick={() => setHovered(item.to)}
+                    onSetActive={(id) => setActive(id)}
                     className={cn(
-                      hovered === item.to || active === item.to
-                        ? "text-primary"
-                        : "",
-                      "absolute group-hover:text-primary left-0 -bottom-1 h-0.5 w-full bg-current"
+                      "relative z-10 transition-colors text-sm",
+                      isActive
+                        ? "text-primary font-semibold"
+                        : "text-secondary hover:text-primary"
                     )}
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </li>
-            ))}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
-        <div className="flex-1 flex justify-center gap-3">
-          {icons.map((icon) => (
-            <motion.a
-              key={icon.href}
-              href={icon.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Image
-                src={icon.src}
-                alt={icon.alt}
-                width={icon.size}
-                height={icon.size}
-                className={icon.className}
-              />
-            </motion.a>
-          ))}
+        {/* RIGHT SECTION */}
+        <div className="flex flex-1 md:justify-end justify-between sm:w-full items-center gap-4">
+          {/* SOCIAL ICONS (always visible) */}
+          <div className="flex flex-1 justify-center gap-3">
+            {icons.map((icon) => (
+              <motion.a
+                key={icon.href}
+                href={icon.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Image
+                  src={icon.src}
+                  alt={icon.alt}
+                  width={icon.size}
+                  height={icon.size}
+                  className={icon.className}
+                />
+              </motion.a>
+            ))}
+          </div>
+
+          {/* HAMBURGER (mobile only) */}
+          <Button
+            className="md:hidden text-primary"
+            variant="ghost"
+            onClick={() => setOpen((p) => !p)}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </Button>
         </div>
       </div>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-background/80 backdrop-blur-md border-t border-border"
+          >
+            <ul className="flex flex-col gap-2 py-4 px-6">
+              {items.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  smooth
+                  duration={600}
+                  offset={-120}
+                  spy
+                  onClick={() => setOpen(false)}
+                  className="py-2 text-secondary hover:text-primary"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
