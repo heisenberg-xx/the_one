@@ -94,7 +94,7 @@ const NavBar = () => {
                       "relative z-10 transition-colors text-sm",
                       isActive
                         ? "text-primary font-semibold"
-                        : "text-secondary hover:text-primary"
+                        : "text-secondary hover:text-primary "
                     )}
                   >
                     {item.label}
