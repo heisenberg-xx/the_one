@@ -6,12 +6,12 @@ import { Typewriter } from "react-simple-typewriter";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
+import { ArrowUpRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
     <Element name="home">
       <section className="relative w-screen h-[65vh] md:h-[86dvh] overflow-hidden border-b border-primary/20 ">
-      
         {/* Background */}
         <div className="absolute inset-0 z-0">
           {/* Desktop shader */}
@@ -71,18 +71,24 @@ const HeroSection = () => {
               }}
               className="inline-block"
             >
-              <Button
-                variant="custom"
-                className="mt-3 lowercase tracking-wide text-sm md:text-md"
+              <a
+                href="https://drive.google.com/file/d/1JaUBjU_8mxQTYUpiaTHYmQsd1Uad0-kU/view?usp=drivesdk"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Resume
-              </Button>
+                <Button
+                  variant="custom"
+                  className="mt-3 lowercase tracking-wide text-sm md:text-md"
+                >
+                  Resume <ArrowUpRight className=" h-4 w-4" />
+                </Button>
+              </a>
             </motion.div>
           </div>
 
           {/* Bottom Image */}
           <div className="relative w-full flex justify-center mb-0 md:mt-0">
-            <motion.div className="relative w-[280px] h-[280px] md:w-[380px] md:h-[380px]">
+            <motion.div className="relative w-70 h-70 md:w-95 md:h-95">
               <Image src="/rajesh2.png" alt="Rajesh Ande" fill priority />
             </motion.div>
           </div>

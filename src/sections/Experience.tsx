@@ -40,7 +40,7 @@ export default function Experience() {
     <Element name="experience">
       <section
         id="experience"
-        className="w-screen md:h-[86dvh] h-[75vh] flex flex-col justify-center gap-35 items-center border-b border-primary/20 md:scroll-mt-24"
+        className="w-screen md:h-[86dvh] h-[75vh] flex flex-col justify-center md:gap-35 gap-10 items-center border-b border-primary/20 md:scroll-mt-24"
       >
         <h1
           
@@ -131,7 +131,7 @@ export default function Experience() {
 
         {/* Mobile Code */}
 
-        <div className="block md:hidden w-full px-6">
+        <div className="block md:hidden w-full px-6 mb-5">
           <div className="relative flex flex-col gap-30">
             <motion.div
               className="absolute left-27 top-3 w-1 h-[85%] bg-primary/40 rounded"
