@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Element } from "react-scroll";
+import { Typewriter } from "react-simple-typewriter";
 
 const experiences = [
   {
@@ -39,8 +40,24 @@ export default function Experience() {
     <Element name="experience">
       <section
         id="experience"
-        className="w-screen md:h-[86dvh] h-[70vh] flex justify-center items-center border-b border-primary/20 scroll-mt-24"
+        className="w-screen md:h-[86dvh] h-[75vh] flex flex-col justify-center gap-35 items-center border-b border-primary/20 md:scroll-mt-24"
       >
+        <h1
+          
+          className="text-primary text-lg md:text-xl  tracking-wider"
+        >
+          <Typewriter
+            words={[
+             "The work so far,"
+            ]}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={120}
+            deleteSpeed={120}
+            delaySpeed={1000}
+          />
+        </h1>
         <div className="hidden md:block w-[70%]">
           <div className="relative ">
             <motion.div
@@ -83,7 +100,6 @@ export default function Experience() {
                     }}
                     className="z-10 flex flex-col items-center cursor-pointer"
                   >
-
                     <div
                       className={cn(
                         "relative h-15 w-15 rounded-full bg-background border border-primary/20 flex items-center justify-center"
@@ -118,7 +134,7 @@ export default function Experience() {
         <div className="block md:hidden w-full px-6">
           <div className="relative flex flex-col gap-30">
             <motion.div
-              className="absolute left-27 top-1 w-1 h-[85%] bg-primary/40 rounded"
+              className="absolute left-27 top-3 w-1 h-[85%] bg-primary/40 rounded"
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}

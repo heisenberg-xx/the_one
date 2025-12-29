@@ -1,8 +1,11 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 import { Element } from "react-scroll";
+import { Typewriter } from "react-simple-typewriter";
 
 export interface SkillItem {
   title: string;
@@ -68,13 +71,108 @@ const items = [
   },
 ];
 
+// export default function Skills() {
+//   return (
+//     <Element name="skills">
+//       <section className="w-screen md:h-[86dvh] h-[50vh] flex items-center justify-center">
+//         <motion.div
+//           className="md:flex grid grid-cols-3 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md"
+//           initial={{ opacity: 0, y: 14 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+//         >
+//           {items.map((item, i) => (
+//             <motion.div
+//               key={item.title}
+//               initial={{ opacity: 0, scale: 0.9, rotateZ: -10 }}
+//               whileInView={{ opacity: 1, scale: 1, rotateZ: 0 }}
+//               viewport={{ once: true }}
+//               transition={{
+//                 delay: i * 0.04,
+//                 duration: 0.18,
+//                 ease: "easeOut",
+//               }}
+//             >
+//               <motion.div
+//                 className="relative flex flex-col items-center cursor-pointer transform-gpu"
+//                 whileHover="hover"
+//                 initial="rest"
+//                 animate="rest"
+//                 variants={{
+//                   rest: { scale: 1 },
+//                   hover: { scale: 1.35, rotateZ: -10 },
+//                 }}
+//                 transition={{
+//                   type: "spring",
+//                   stiffness: 520,
+//                   damping: 32,
+//                   mass: 0.6,
+//                 }}
+//               >
+
+//                 <motion.div
+//                   variants={{
+//                     rest: { opacity: 0, y: 4, rotateZ: -4 },
+//                     hover: { opacity: 1, y: -20 },
+//                   }}
+//                   transition={{ duration: 0.12, ease: "easeOut" }}
+//                   className="
+//                   pointer-events-none absolute -top-7 px-2 py-0.5 text-[11px] rounded whitespace-nowrap bg-primary/10 backdrop-blur-md border border-primary/30 text-primary "
+//                 >
+//                   {item.desc}
+//                 </motion.div>
+
+//                 <Image
+//                   src={item.image}
+//                   alt={item.title}
+//                   className={item.className}
+//                   width={40}
+//                   height={40}
+//                   draggable={false}
+//                 />
+//               </motion.div>
+//             </motion.div>
+//           ))}
+//         </motion.div>
+//       </section>
+//     </Element>
+//   );
+// }
 
 export default function Skills() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
     <Element name="skills">
-      <section className="w-screen md:h-[86dvh] h-[50vh] flex items-center justify-center">
+      <section className="w-screen md:h-[86dvh] h-[60vh] flex flex-col items-center justify-center gap-4 md:scroll-mt-24">
+        <h1 className="text-primary text-lg md:text-xl  tracking-wider mb-20">
+          <Typewriter
+            words={["What I build with,"]}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={120}
+            deleteSpeed={120}
+            delaySpeed={1000}
+          />
+        </h1>
         <motion.div
-          className="md:flex grid grid-cols-3 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md"
+          key={activeIndex}
+          initial={{ opacity: 0, y: 10, rotateZ: -3 }}
+          animate={{ opacity: 1, y: -15, rotateZ: 10 }}
+          transition={{ duration: 0.18, ease: "easeOut" }}
+          className={cn(
+            activeIndex !== null ? "" : "hidden",
+            "md:hidden px-4 py-2 text-xs text-center rounded-lg bg-primary/10 backdrop-blur-md border border-primary/30 text-primary max-w-[90%]"
+          )}
+        >
+          {activeIndex !== null && items[activeIndex].desc}
+        </motion.div>
+
+        {/* ICON GRID */}
+        <motion.div
+          className="md:flex hidden gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -94,12 +192,13 @@ export default function Skills() {
             >
               <motion.div
                 className="relative flex flex-col items-center cursor-pointer transform-gpu"
+                onClick={() => setActiveIndex(i)}
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
                 variants={{
                   rest: { scale: 1 },
-                  hover: { scale: 1.35, rotateZ: -10 },
+                  hover: { scale: 1.5, rotateZ: -10 },
                 }}
                 transition={{
                   type: "spring",
@@ -108,15 +207,14 @@ export default function Skills() {
                   mass: 0.6,
                 }}
               >
-              
+                {/* DESKTOP HOVER TOOLTIP */}
                 <motion.div
+                  className="hidden md:block pointer-events-none absolute -top-7 px-2 py-0.5 text-[10px] rounded whitespace-nowrap bg-primary/10 backdrop-blur-md border border-primary/30 text-primary"
                   variants={{
                     rest: { opacity: 0, y: 4, rotateZ: -4 },
                     hover: { opacity: 1, y: -20 },
                   }}
                   transition={{ duration: 0.12, ease: "easeOut" }}
-                  className="
-                  pointer-events-none absolute -top-7 px-2 py-0.5 text-[11px] rounded whitespace-nowrap bg-primary/10 backdrop-blur-md border border-primary/30 text-primary "
                 >
                   {item.desc}
                 </motion.div>
@@ -133,6 +231,63 @@ export default function Skills() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Mobile Grid */}
+
+        <motion.div
+          className="md:hidden grid grid-cols-3 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {items.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, scale: 0.9, rotateZ: -10 }}
+              whileInView={{ opacity: 1, scale: 1, rotateZ: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                delay: i * 0.04,
+                duration: 0.18,
+                ease: "easeOut",
+              }}
+            >
+              <motion.div
+                className="relative flex flex-col items-center cursor-pointer transform-gpu"
+                onClick={() => setActiveIndex(i)}
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                variants={{
+                  rest: {
+                    scale: activeIndex === i ? 1.5 : 1,
+                    z: activeIndex === i ? -200 : 0,
+                    rotateZ: activeIndex === i ? -20 : 0,
+                  },
+                  hover: { scale: 1.35, rotateZ: -10 },
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 520,
+                  damping: 20,
+                  mass: 0.6,
+                }}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  className={item.className}
+                  width={40}
+                  height={40}
+                  draggable={false}
+                />
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* MOBILE SHARED DESCRIPTION */}
       </section>
     </Element>
   );

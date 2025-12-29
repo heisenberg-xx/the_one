@@ -106,9 +106,9 @@ const NavBar = () => {
         </nav>
 
         {/* right dummy div */}
-        <div className="flex flex-1 md:justify-end justify-between sm:w-full items-center gap-4">
+        <div className="flex flex-1 md:justify-end justify-between md:px-0 px-5 sm:w-full items-center gap-4">
           {/* media icons */}
-          <div className="flex flex-1 justify-center  gap-3">
+          <div className="flex md:flex-1 justify-center  gap-3">
             {icons.map((icon) => (
               <motion.a
                 key={icon.href}
@@ -131,7 +131,7 @@ const NavBar = () => {
 
           {/* hamburger for mobile ) */}
           <Button
-            className="md:hidden text-primary"
+            className="md:hidden text-primary hover:bg-none hover:text-primary active:bg-none active:text-primary"
             variant="ghost"
             onClick={() => setOpen((p) => !p)}
           >
@@ -148,7 +148,7 @@ const NavBar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-background/80 backdrop-blur-md border-t border-border"
+            className="md:hidden bg-transparent backdrop-blur-md border-t border-primary/20"
           >
             <ul className="flex flex-col gap-2 py-4 px-6">
               {items.map((item) => (
