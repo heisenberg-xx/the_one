@@ -130,12 +130,37 @@ const NavBar = () => {
           </div>
 
           {/* hamburger for mobile ) */}
+
           <Button
-            className="md:hidden text-primary hover:bg-none hover:text-primary active:bg-none active:text-primary"
             variant="ghost"
+            className=" md:hidden text-primary "
             onClick={() => setOpen((p) => !p)}
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            <AnimatePresence mode="wait" initial={false}>
+              {open ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -90, scale: 0.6, opacity: 0 }}
+                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                  exit={{ rotate: 90, scale: 0.6, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="flex text-primary "
+                >
+                  <X size={22} />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  initial={{ rotate: 90, scale: 0.6, opacity: 0 }}
+                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                  exit={{ rotate: -90, scale: 0.6, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="flex text-primary "
+                >
+                  <Menu size={22} />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </Button>
         </div>
       </div>
