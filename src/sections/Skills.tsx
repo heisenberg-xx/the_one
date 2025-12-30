@@ -145,7 +145,7 @@ export default function Skills() {
 
   return (
     <Element name="skills">
-      <section className="w-screen md:h-[86dvh] h-[60vh] flex flex-col items-center justify-center gap-4 md:scroll-mt-24">
+      <section className="w-screen md:h-[86dvh] h-[60vh] flex flex-col items-center justify-center gap-4 md:scroll-mt-24 border-b border-primary/20">
         <h1 className="text-primary text-lg md:text-xl  tracking-wider mb-20">
           <Typewriter
             words={["What I build with,"]}
