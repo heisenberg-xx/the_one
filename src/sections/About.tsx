@@ -15,10 +15,10 @@ const About = () => {
         <div className="relative md:w-[77%] w-[85%] md:text-lg text-sm text-secondary space-y-5 leading-relaxed md:ml-0 ml-5">
           {/* OPENING QUOTE */}
           <motion.span
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 90 }}
             whileInView={{ opacity: 0.7, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.5 }}
             className="absolute md:-top-24 md:-left-20 md:text-[10rem] -top-12 -left-10 text-[6rem] font-black text-primary select-none pointer-events-none"
           >
             &ldquo;
@@ -67,7 +67,7 @@ const About = () => {
 
           {/* CLOSING QUOTE */}
           <motion.span
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: -90 }}
             whileInView={{ opacity: 0.7, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
