@@ -37,7 +37,7 @@ export function SayHi() {
 
   return (
     <Element name="say-hi">
-      <section className="w-screen md:h-[66dvh] h-[70vh] flex md:flex-row flex-col  items-center justify-center gap-7 md:scroll-mt-24 mb-25 ">
+      <section className="w-screen md:h-[76dvh] h-[70vh] flex md:flex-row flex-col  items-center justify-center gap-7 md:scroll-mt-24 mb-25 ">
         <div className="flex-1 flex flex-col items-center justify-center md:mb-0 mb-5 gap-10">
           <motion.h2
             initial={{ opacity: 0, letterSpacing: "0.15em" }}
@@ -64,7 +64,10 @@ export function SayHi() {
           </p>
         </div>
         <div className="flex-1 flex items-center justify-center">
-          <form onSubmit={handleSubmit} className="w-full max-w-md space-y-5 md:px-0 px-5">
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-md space-y-5 md:px-0 px-5"
+          >
             <Input name="name" placeholder="Your name" required />
 
             <Input
