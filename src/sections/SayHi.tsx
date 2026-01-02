@@ -7,37 +7,48 @@ import { Textarea } from "@/components/ui/textarea";
 import { Element } from "react-scroll";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+
 export function SayHi() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  function onChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-
-    const formData = new FormData(e.currentTarget);
+    setSuccess(false);
 
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: formData.get("name"),
-        email: formData.get("email"),
-        message: formData.get("message"),
-      }),
+      body: JSON.stringify(form),
     });
 
     setLoading(false);
 
     if (res.ok) {
       setSuccess(true);
-      e.currentTarget.reset();
+      setForm({ name: "", email: "", message: "" });
     }
   }
 
   return (
     <Element name="say-hi">
-      <section className="w-screen md:h-[76dvh] h-[70vh] flex md:flex-row flex-col  items-center justify-center gap-7 md:scroll-mt-24 mb-25 ">
+      <section className="w-screen md:h-[76dvh] h-[70vh] flex md:flex-row flex-col items-center justify-center gap-7 md:scroll-mt-24 mb-25">
         <div className="flex-1 flex flex-col items-center justify-center md:mb-0 mb-5 gap-10">
           <motion.h2
             initial={{ opacity: 0, letterSpacing: "0.15em" }}
@@ -48,6 +59,7 @@ export function SayHi() {
           >
             Say Hi!
           </motion.h2>
+
           <p className="text-sm text-primary">
             <Typewriter
               words={[
@@ -63,12 +75,19 @@ export function SayHi() {
             />
           </p>
         </div>
+
         <div className="flex-1 flex items-center justify-center">
           <form
             onSubmit={handleSubmit}
             className="w-full max-w-md space-y-5 md:px-0 px-5"
           >
-            <Input name="name" placeholder="Your name" required />
+            <Input
+              name="name"
+              placeholder="Your name"
+              required
+              value={form.name}
+              onChange={onChange}
+            />
 
             <Input
               name="email"
@@ -76,6 +95,8 @@ export function SayHi() {
               placeholder="Your email"
               className="text-white bg-background/10"
               required
+              value={form.email}
+              onChange={onChange}
             />
 
             <Textarea
@@ -83,6 +104,8 @@ export function SayHi() {
               placeholder="What’s on your mind?"
               rows={4}
               required
+              value={form.message}
+              onChange={onChange}
             />
 
             <Button type="submit" className="w-full" disabled={loading}>
