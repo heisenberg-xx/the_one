@@ -135,7 +135,7 @@ const NavBar = () => {
             variant="ghost"
             className="md:hidden lg:hidden text-primary block "
             onClick={() => setOpen((p) => !p)}
-            asChild
+            
           >
             <AnimatePresence mode="wait" initial={false}>
               {open ? (
@@ -156,7 +156,7 @@ const NavBar = () => {
                   animate={{ rotate: 0, scale: 1, opacity: 1 }}
                   exit={{ rotate: -90, scale: 0.6, opacity: 0 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="flex text-primary md:hidden  "
+                  className="flex text-primary md:hidden"
                 >
                   <Menu size={22} />
                 </motion.span>
