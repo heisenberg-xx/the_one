@@ -135,6 +135,7 @@ const NavBar = () => {
             variant="ghost"
             className=" md:hidden text-primary "
             onClick={() => setOpen((p) => !p)}
+            asChild
           >
             <AnimatePresence mode="wait" initial={false}>
               {open ? (

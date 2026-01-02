@@ -120,7 +120,7 @@ const works = [
         and retrieval, focusing on speed, simplicity, and reliability.
       </>
     ),
-    url: "https://copy-code.vercel.app/",
+    url: "https://copy-code-bro.vercel.app/",
     span: 2,
   },
 
@@ -155,8 +155,8 @@ export const Works = () => {
   const [hovered, setHovered] = React.useState<number | null>(null);
   return (
     <Element name="works">
-      <section className="w-screen md:h-[86dvh] h-[80vh] flex md:flex-row flex-col-reverse  items-center justify-center gap-7 md:scroll-mt-24 mb-10 border-b border-primary/20">
-        <div className="grid md:px-0 px-5 md:grid-cols-3 grid-cols-2 gap-10 items-center border border-primary/20 p-6 rounded-md bg-primary/5 my-10 md:my-2">
+      <section className="w-screen md:h-[86dvh] h-[80vh] flex  flex-col-reverse  items-center justify-center  md:scroll-mt-24 mb-10 border-b border-primary/20">
+        <div className="flex  p-5 justify-center gap-20 items-center flex-wrap   ">
           {works.map((work, index) => (
             <div
               key={work.title.toLowerCase()}
@@ -170,19 +170,19 @@ export const Works = () => {
                 onClick={() =>
                   setHovered((prev) => (prev === index ? null : index))
                 }
-                //
-                className="md:w-40 md:h-20 w-20 h-15 relative"
-                initial={{ scale: 1 }}
-                whileHover={{
-                  scale: 1.9,
-                }}
-                animate={{
+                className="md:w-30 md:h-15 w-20 h-15 relative"
+                initial={{ opacity: 0, scale: 0.4, y: 50 }}
+                whileInView={{
+                  opacity: 1,
                   scale: hovered === index ? 1.9 : 1,
+                  y: 0,
                 }}
+                viewport={{ once: true, amount: 0.4 }}
+                whileHover={{ scale: 1.9 }}
                 transition={{
                   type: "spring",
-                  damping: 40,
-                  stiffness: 700,
+                  damping: 30,
+                  stiffness: 500,
                 }}
               >
                 <Image
@@ -191,7 +191,7 @@ export const Works = () => {
                     work.title === "Rock Paper Scissors"
                       ? "bg-white rounded-md"
                       : "",
-                    "object-contain "
+                    "object-contain"
                   )}
                   src={work.logo}
                   alt={work.title}
@@ -200,7 +200,7 @@ export const Works = () => {
             </div>
           ))}
         </div>
-        <div className="md:w-150 md:px-0 px-5 h-100 flex justify-center items-center md:mt-0 mt-10 md:text-sm text-xs">
+        <div className="md:w-150 md:px-0 px-5 h-50 flex justify-center items-center  md:text-sm text-xs">
           {hovered !== null ? (
             <AnimatePresence mode="wait">
               <motion.div

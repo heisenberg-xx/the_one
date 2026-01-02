@@ -161,6 +161,7 @@ export default function Skills() {
           key={activeIndex}
           initial={{ opacity: 0, y: 10, rotateZ: -3 }}
           animate={{ opacity: 1, y: -15, rotateZ: 10 }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
           className={cn(
             activeIndex !== null ? "" : "hidden",
@@ -175,7 +176,7 @@ export default function Skills() {
           className="md:flex hidden gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
         >
           {items.map((item, i) => (
@@ -183,7 +184,7 @@ export default function Skills() {
               key={item.title}
               initial={{ opacity: 0, scale: 0.9, rotateZ: -10 }}
               whileInView={{ opacity: 1, scale: 1, rotateZ: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.4 }}
               transition={{
                 delay: i * 0.04,
                 duration: 0.18,
@@ -196,6 +197,7 @@ export default function Skills() {
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
+                viewport={{ once: true, amount: 0.4 }}
                 variants={{
                   rest: { scale: 1 },
                   hover: { scale: 1.5, rotateZ: -10 },
@@ -215,6 +217,7 @@ export default function Skills() {
                     hover: { opacity: 1, y: -20 },
                   }}
                   transition={{ duration: 0.12, ease: "easeOut" }}
+                  viewport={{ once: true, amount: 0.4 }}
                 >
                   {item.desc}
                 </motion.div>
@@ -238,7 +241,7 @@ export default function Skills() {
           className="md:hidden grid grid-cols-3 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
         >
           {items.map((item, i) => (
@@ -246,7 +249,7 @@ export default function Skills() {
               key={item.title}
               initial={{ opacity: 0, scale: 0.9, rotateZ: -10 }}
               whileInView={{ opacity: 1, scale: 1, rotateZ: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.4 }}
               transition={{
                 delay: i * 0.04,
                 duration: 0.18,
@@ -259,6 +262,7 @@ export default function Skills() {
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
+                viewport={{ once: true, amount: 0.4 }}
                 variants={{
                   rest: {
                     scale: activeIndex === i ? 1.5 : 1,

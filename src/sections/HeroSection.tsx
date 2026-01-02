@@ -7,7 +7,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import { ArrowUpRight } from "lucide-react";
+import dynamic from "next/dynamic";
 
+const ShaderBg = dynamic(() => import("@/components/ShaderBg"), { ssr: false });
 const HeroSection = () => {
   return (
     <Element name="home">
@@ -16,22 +18,12 @@ const HeroSection = () => {
         <div className="absolute inset-0 z-0">
           {/* Desktop shader */}
           <div className="hidden md:block w-full h-full">
-            <ShaderGradientCanvas>
-              <ShaderGradient
-                control="query"
-                urlString="https://shadergradient.co/customize?animate=on&axesHelper=off&brightness=0.3&cAzimuthAngle=180&cDistance=2.8&cPolarAngle=80&cameraZoom=4.6&color1=%23606080&color2=%2373AF6F&color3=%23212121&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=80&frameRate=10&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=2&positionX=0&positionY=0&positionZ=0&range=disabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=50&rotationY=0&rotationZ=-60&shader=defaults&type=sphere&uAmplitude=0&uDensity=1.5&uFrequency=0&uSpeed=0.1&uStrength=0.5&uTime=8&wireframe=false"
-              />
-            </ShaderGradientCanvas>
+            <ShaderBg url="https://shadergradient.co/customize?animate=on&axesHelper=off&brightness=0.3&cAzimuthAngle=180&cDistance=2.8&cPolarAngle=80&cameraZoom=4.6&color1=%23606080&color2=%2373AF6F&color3=%23212121&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=80&frameRate=10&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=2&positionX=0&positionY=0&positionZ=0&range=disabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=50&rotationY=0&rotationZ=-60&shader=defaults&type=sphere&uAmplitude=0&uDensity=1.5&uFrequency=0&uSpeed=0.1&uStrength=0.5&uTime=8&wireframe=false" />
           </div>
 
           {/* Mobile shader (lighter) */}
           <div className="block md:hidden w-full h-full">
-            <ShaderGradientCanvas>
-              <ShaderGradient
-                control="query"
-                urlString="https://shadergradient.co/customize?animate=on&axesHelper=off&brightness=0.2&cAzimuthAngle=180&cDistance=1.7&cPolarAngle=70&cameraZoom=3.8&color1=%23606080&color2=%2373AF6F&color3=%23212121&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=70&frameRate=6&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=1&positionX=0&positionY=0&positionZ=0&range=disabled&rangeEnd=30&rangeStart=0&reflection=0.05&rotationX=45&rotationY=0&rotationZ=-50&shader=defaults&type=sphere&uAmplitude=0&uDensity=1.2&uFrequency=0&uSpeed=0.08&uStrength=0.4&uTime=8&wireframe=false"
-              />
-            </ShaderGradientCanvas>
+            <ShaderBg url="https://shadergradient.co/customize?animate=on&axesHelper=off&brightness=0.2&cAzimuthAngle=180&cDistance=1.7&cPolarAngle=70&cameraZoom=3.8&color1=%23606080&color2=%2373AF6F&color3=%23212121&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=70&frameRate=6&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=1&positionX=0&positionY=0&positionZ=0&range=disabled&rangeEnd=30&rangeStart=0&reflection=0.05&rotationX=45&rotationY=0&rotationZ=-50&shader=defaults&type=sphere&uAmplitude=0&uDensity=1.2&uFrequency=0&uSpeed=0.08&uStrength=0.4&uTime=8&wireframe=false" />
           </div>
         </div>
 
@@ -71,18 +63,19 @@ const HeroSection = () => {
               }}
               className="inline-block"
             >
-              <a
-                href="https://drive.google.com/file/d/1JaUBjU_8mxQTYUpiaTHYmQsd1Uad0-kU/view?usp=drivesdk"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Button
+                asChild
+                variant="custom"
+                className="mt-3 lowercase tracking-wide text-sm md:text-md"
               >
-                <Button
-                  variant="custom"
-                  className="mt-3 lowercase tracking-wide text-sm md:text-md"
+                <a
+                  href="https://drive.google.com/file/d/1JaUBjU_8mxQTYUpiaTHYmQsd1Uad0-kU/view?usp=drivesdk"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  Resume <ArrowUpRight className=" h-4 w-4" />
-                </Button>
-              </a>
+                  Resume <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </Button>
             </motion.div>
           </div>
 
