@@ -1,0 +1,22 @@
+{
+  "name": "rajesh ande",
+  "short_name": "HeisenBerg",
+  "description": "a developer who builds, breaks, and rebuilds better.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#239ba7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/rajesh2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/rajesh2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
