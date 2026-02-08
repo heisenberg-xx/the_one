@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Element } from "react-scroll";
+import { Typewriter } from "react-simple-typewriter";
 
 const experiences = [
   {
@@ -39,25 +40,135 @@ export default function Experience() {
     <Element name="experience">
       <section
         id="experience"
-        className="w-screen h-[86dvh] flex justify-center items-center border-b border-primary/20 scroll-mt-24"
+        className="w-screen md:h-[86dvh] h-[75vh] flex flex-col justify-center md:gap-35 gap-10 items-center border-b border-primary/20 md:scroll-mt-24"
       >
-        <div className="relative w-[70%]">
-          <motion.div
-            className="absolute top-1/3 left-7  h-1 bg-primary origin-left rounded-md"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            style={{ width: "95%" }}
+        <h1
+          
+          className="text-primary text-lg md:text-xl  tracking-wider"
+        >
+          <Typewriter
+            words={[
+             "The work so far,"
+            ]}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={120}
+            deleteSpeed={120}
+            delaySpeed={1000}
           />
+        </h1>
+        <div className="hidden md:block w-[70%]">
+          <div className="relative ">
+            <motion.div
+              className="absolute top-1/3 left-7  h-1 bg-primary origin-left rounded-md"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              style={{ width: "95%" }}
+            />
 
-          <div className="relative flex justify-between">
+            <div className="relative flex justify-between">
+              {experiences.map((exp, i) => (
+                <div key={i} className="relative flex flex-col items-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.9, rotateZ: 0 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1, rotateZ: 2 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      delay: 0.6 + i * 0.2,
+                      type: "spring",
+                      stiffness: 120,
+                      damping: 12,
+                    }}
+                    className="absolute -top-20 w-40 text-center text-xs bg-primary/10 backdrop-blur border border-primary/20 rounded-lg px-4 py-3 shadow-md "
+                  >
+                    <p className="text-primary font-semibold">{exp.role}</p>
+                    <p className="text-primary font-semibold">{exp.year}</p>
+                    {/* <p className="text-secondary mt-1">{exp.desc}</p> */}
+                  </motion.div>
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      delay: i * 0.3,
+                      type: "spring",
+                      stiffness: 120,
+                      damping: 20,
+                    }}
+                    className="z-10 flex flex-col items-center cursor-pointer"
+                  >
+                    <div
+                      className={cn(
+                        "relative h-15 w-15 rounded-full bg-background border border-primary/20 flex items-center justify-center"
+                      )}
+                    >
+                      {exp.image ? (
+                        <div className="relative h-10 w-10">
+                          <Image
+                            src={exp.image}
+                            alt={exp.title}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-4 w-4 rounded-full bg-primary" />
+                      )}
+                    </div>
+
+                    <span className="mt-4 text-sm text-secondary">
+                      {exp.title}
+                    </span>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Code */}
+
+        <div className="block md:hidden w-full px-6 mb-5">
+          <div className="relative flex flex-col gap-30">
+            <motion.div
+              className="absolute left-27 top-3 w-1 h-[85%] bg-primary/40 rounded"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              style={{ transformOrigin: "top" }}
+            />
+
             {experiences.map((exp, i) => (
-              <div key={i} className="relative flex flex-col items-center">
-                {/* Info bubble */}
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="relative pl-12"
+              >
+                <div className="absolute left-20 top-1 h-15 w-15 rounded-full bg-background border border-primary/40 flex items-center justify-center">
+                  {exp.image ? (
+                    <div className="relative h-10 w-10">
+                      <Image
+                        src={exp.image}
+                        alt={exp.title}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-7 w-7 rounded-full bg-primary" />
+                  )}
+                </div>
+
                 <motion.div
                   initial={{ opacity: 0, y: 20, scale: 0.9, rotateZ: 0 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1, rotateZ: 2 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1, rotateZ: -2 }}
                   viewport={{ once: true }}
                   transition={{
                     delay: 0.6 + i * 0.2,
@@ -65,51 +176,12 @@ export default function Experience() {
                     stiffness: 120,
                     damping: 12,
                   }}
-                  className="absolute -top-20 w-56 text-center text-sm bg-foreground/90 backdrop-blur border border-primary/20 rounded-lg px-4 py-3 shadow-md"
+                  className="bg-primary/10 backdrop-blur border border-primary/20 rounded-lg p-4 shadow-md  ml-30 text-xs text-center w-40"
                 >
                   <p className="text-primary font-semibold">{exp.role}</p>
-                  <p className="text-primary font-semibold">{exp.year}</p>
-                  {/* <p className="text-secondary mt-1">{exp.desc}</p> */}
+                  <p className="text-xs text-secondary">{exp.year}</p>
                 </motion.div>
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: i * 0.3,
-                    type: "spring",
-                    stiffness: 120,
-                    damping: 20,
-                  }}
-                  className="z-10 flex flex-col items-center cursor-pointer"
-                >
-                  {/* Check point */}
-
-                  <div
-                    className={cn(
-                      "relative h-20 w-20 rounded-full bg-background border border-primary/20 flex items-center justify-center"
-                    )}
-                  >
-                    {exp.image ? (
-                      <div className="relative h-15 w-15">
-                        <Image
-                          src={exp.image}
-                          alt={exp.title}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <div className="h-4 w-4 rounded-full bg-primary" />
-                    )}
-                  </div>
-
-                  {/* Label */}
-                  <span className="mt-4 text-sm text-secondary">
-                    {exp.title}
-                  </span>
-                </motion.div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
