@@ -51,7 +51,7 @@ const works = [
         speed, usability, and trust.
       </>
     ),
-    url: "https://blood-bridge.vercel.app/",
+    url: "https://blood-bridge-app.vercel.app/",
     span: 1,
   },
   {
