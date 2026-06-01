@@ -69,6 +69,30 @@ const items = [
     className: "",
     desc: "Takes care of server data so I don’t have to.",
   },
+  {
+    title: "Expo",
+    image: "/icons/skills/expo.svg",
+    className: "invert",
+    desc: "Lets me build mobile apps while staying in the React ecosystem I love.",
+  },
+  {
+    title: "NestJS",
+    image: "/icons/skills/nest.svg",
+    className: "",
+    desc: "My go-to framework for building scalable backend systems.",
+  },
+  {
+    title: "Supabase",
+    image: "/icons/skills/supabase-logo.svg",
+    className: "",
+    desc: "An easy way for me to work with PostgreSQL in side projects and production apps.",
+  },
+  {
+    title: "Socket.io",
+    image: "/icons/skills/socket.svg",
+    className: "invert",
+    desc: "My favorite tool when applications need to talk in real time.",
+  },
 ];
 
 // export default function Skills() {
@@ -165,7 +189,7 @@ export default function Skills() {
           transition={{ duration: 0.18, ease: "easeOut" }}
           className={cn(
             activeIndex !== null ? "" : "hidden",
-            "md:hidden px-4 py-2 text-xs text-center rounded-lg bg-primary/10 backdrop-blur-md border border-primary/30 text-primary max-w-[90%]"
+            "md:hidden px-4 py-2 text-xs text-center rounded-lg bg-primary/10 backdrop-blur-md border border-primary/30 text-primary max-w-[90%]",
           )}
         >
           {activeIndex !== null && items[activeIndex].desc}
