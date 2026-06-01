@@ -10,6 +10,37 @@ import { cn } from "@/lib/utils";
 
 const works = [
   {
+    title: "Watchman",
+    logo: "/icons/works/watchman1.png",
+    desc: (
+      <>
+        Built this to learn what happens after an application goes live.
+        Watchman continuously monitors{" "}
+        <span className="font-medium text-primary">API health endpoints</span>,
+        tracks{" "}
+        <span className="font-medium text-primary">
+          uptime, downtime, and response times{" "}
+        </span>
+        , and keeps a history of failures. Monitoring jobs run through{" "}
+        <span className="font-medium text-primary">BullMQ</span> and{" "}
+        <span className="font-medium text-primary">Redis</span>, while{" "}
+        <span className="font-medium text-primary">
+          Server-Sent Events (SSE){" "}
+        </span>
+        power live log streaming. The platform is built with{" "}
+        <span className="font-medium text-primary">NestJS</span>,{" "}
+        <span className="font-medium text-primary">Next.js</span>, and{" "}
+        <span className="font-medium text-primary">PostgreSQL</span>, then{" "}
+        containerized with{" "}
+        <span className="font-medium text-primary">Docker</span> and deployed on
+        <span className="font-medium text-primary">AWS EC2</span> behind
+        <span className="font-medium text-primary">Nginx</span>.
+      </>
+    ),
+    url: "https://watchman.rajeshh.info",
+    span: 1,
+  },
+  {
     title: "Session",
     logo: "/icons/works/session.png",
     desc: (
@@ -162,7 +193,7 @@ export const Works = () => {
               key={work.title.toLowerCase()}
               className={cn(
                 spanMap[work.span],
-                "flex flex-col items-center gap-2"
+                "flex flex-col items-center gap-2",
               )}
             >
               <motion.div
@@ -191,7 +222,7 @@ export const Works = () => {
                     work.title === "Rock Paper Scissors"
                       ? "bg-white rounded-md"
                       : "",
-                    "object-contain"
+                    "object-contain",
                   )}
                   src={work.logo}
                   alt={work.title}
