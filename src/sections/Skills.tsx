@@ -262,7 +262,7 @@ export default function Skills() {
         {/* Mobile Grid */}
 
         <motion.div
-          className="md:hidden grid grid-cols-3 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
+          className="md:hidden grid grid-cols-5 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
