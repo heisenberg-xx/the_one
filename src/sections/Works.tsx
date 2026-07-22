@@ -10,6 +10,24 @@ import { cn } from "@/lib/utils";
 
 const works = [
   {
+    title: "Fring",
+    logo: "/icons/works/fring-logo.png",
+    desc: (
+      <>
+        It started with a simple frustration—spending hours setting up the same
+        project over and over again.{" "}
+        <span className="font-medium text-primary">From hours to minutes.</span>{" "}
+        Fring scaffolds applications with a clean project structure, reusable
+        templates, and modern tooling, so developers can skip the repetitive
+        setup and start building immediately.Tt's designed to grow with{" "}
+        <span className="font-medium text-primary">new frameworks,</span>{" "}
+        templates, and features over time.
+      </>
+    ),
+    url: "https://fring-dev.vercel.app/",
+    span: 1,
+  },
+  {
     title: "Watchman",
     logo: "/icons/works/watchman1.png",
     desc: (
@@ -187,7 +205,8 @@ export const Works = () => {
   return (
     <Element name="works">
       <section className="w-screen md:h-[86dvh] h-[80vh] flex  flex-col-reverse  items-center justify-center  md:scroll-mt-24 mb-10 border-b border-primary/20">
-        <div className="flex  p-5 justify-center gap-20 items-center flex-wrap   ">
+        {/* <div className="flex  p-5 justify-center gap-20 items-center flex-wrap   "> */}
+        <div className="grid md:grid-cols-6 grid-cols-2  p-5 justify-center gap-20 items-center flex-wrap   ">
           {works.map((work, index) => (
             <div
               key={work.title.toLowerCase()}
