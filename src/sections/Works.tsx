@@ -24,7 +24,7 @@ const works = [
         templates, and features over time.
       </>
     ),
-    url: "https://github.com/yourusername/fring",
+    url: "https://fring-dev.vercel.app/",
     span: 1,
   },
   {
