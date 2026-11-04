@@ -197,6 +197,7 @@ export default function Skills() {
 
         {/* ICON GRID */}
         <motion.div
+          data-shimeji-surface
           className="md:flex hidden gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -262,6 +263,7 @@ export default function Skills() {
         {/* Mobile Grid */}
 
         <motion.div
+          data-shimeji-surface
           className="md:hidden grid grid-cols-5 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}

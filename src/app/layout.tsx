@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import Shimeji from "@/components/shimeji/Shimeji";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`font-light antialiased overflow-x-hidden min-h-screen`}>
         <NavBar />
         {children}
+        <Shimeji character="heisenberg" respectReducedMotion={false} />
       </body>
     </html>
   );

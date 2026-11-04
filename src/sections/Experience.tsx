@@ -61,7 +61,7 @@ export default function Experience() {
         <div className="hidden md:block w-[70%]">
           <div className="relative ">
             <motion.div
-              className="absolute top-1/3 left-7  h-1 bg-primary origin-left rounded-md"
+              className="absolute top-1/3 left-7  h-1 bg-primary/40 origin-left rounded-md"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
@@ -82,7 +82,7 @@ export default function Experience() {
                       stiffness: 120,
                       damping: 12,
                     }}
-                    className="absolute -top-20 w-40 text-center text-xs bg-primary/10 backdrop-blur border border-primary/20 rounded-lg px-4 py-3 shadow-md "
+                    className="absolute -top-20 w-40 text-center text-xs bg-primary/5 backdrop-blur border border-primary/20 rounded-lg px-4 py-3 shadow-md "
                   >
                     <p className="text-primary font-semibold">{exp.role}</p>
                     <p className="text-primary font-semibold">{exp.year}</p>
@@ -176,7 +176,7 @@ export default function Experience() {
                     stiffness: 120,
                     damping: 12,
                   }}
-                  className="bg-primary/10 backdrop-blur border border-primary/20 rounded-lg p-4 shadow-md  ml-30 text-xs text-center w-40"
+                  className="bg-primary/5 backdrop-blur border border-primary/20 rounded-lg p-4 shadow-md  ml-30 text-xs text-center w-40"
                 >
                   <p className="text-primary font-semibold">{exp.role}</p>
                   <p className="text-xs text-secondary">{exp.year}</p>
