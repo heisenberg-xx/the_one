@@ -99,6 +99,30 @@ export class Breed extends ActionBase {
   }
 }
 
+/* ------------------------------ visual effects ------------------------------ */
+
+/**
+ * Browser addition: spawn an effect at (x, y) relative to the anchor, given in
+ * left-facing image px (mirrored when looking right). One tick.
+ */
+export class EmitEffect extends ActionBase {
+  override hasNext() {
+    return super.hasNext() && this.time < 1;
+  }
+
+  protected tick() {
+    const m = this.mascot;
+    const ox = toInt(this.vars.get("x", 0));
+    const oy = toInt(this.vars.get("y", 0));
+    m.engine.effects.spawn(
+      this.vars.get("kind"),
+      m.anchor.x + (m.lookRight ? -ox : ox),
+      m.anchor.y + oy,
+      m.lookRight ? 1 : -1
+    );
+  }
+}
+
 /* ------------------------- carrying the "IE" window ------------------------- */
 /* Browser adaptation: the IE is a [data-shimeji-surface] element moved with CSS
  * `translate`. Only reachable when `allowSurfaceThrowing` is enabled.          */

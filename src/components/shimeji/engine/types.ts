@@ -27,7 +27,9 @@ export type BuiltinClass =
   | "Breed"
   | "FallWithIE"
   | "WalkWithIE"
-  | "ThrowIE";
+  | "ThrowIE"
+  /** Browser addition: emit a visual effect (gunshot, slam) for one tick. */
+  | "Effect";
 
 /**
  * 種類:

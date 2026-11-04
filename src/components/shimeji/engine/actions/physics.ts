@@ -68,12 +68,23 @@ export class Fall extends ActionBase {
         y: start.y + Math.trunc((dy * i) / dev),
       };
       m.anchor = p;
-      if (dy > 0 && this.env.isOnFloor(p)) break;
+      if (dy > 0 && this.env.isOnFloor(p)) {
+        this.landed(p);
+        break;
+      }
       const wall = this.env.wallAt(p);
       if (wall && (dx === 0 || Math.sign(dx) === -(wall.freeSide ?? 0))) break;
     }
 
     this.getAnimation()?.next(m, this.time);
+  }
+
+  /** Browser addition: optional landing effect (param landEffect) on hard impacts. */
+  private landed(p: { x: number; y: number }) {
+    const effect = this.vars.get<string | undefined>("landEffect");
+    if (effect && this.vy >= this.num("landMinSpeed", 12)) {
+      this.mascot.engine.effects.spawn(effect as "slam", p.x, p.y, this.mascot.lookRight ? 1 : -1);
+    }
   }
 }
 

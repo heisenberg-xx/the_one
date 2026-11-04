@@ -11,7 +11,7 @@
  *   68 dazed · 69 coffee · 70 cigar · 71 briefcase · 72 laptop (sitting)
  *   73 laptop · 74 phone · 75 thumbs up · 76 "SLAM IT" · 77 pointing
  *   78 adjusting glasses · 79 arms crossed · 80 side view · 81 back view
- *   82 crouch · 83 lying, head down
+ *   82 crouch · 83 lying, head down · 84 gun aim · 85 gun recoil
  * Poses that the guide does not contain are derived from it: wall climbing
  * uses walk frames rotated 90°, ceiling crawling uses them upside-down, and
  * swinging while held uses the idle frame tilted ±10°/±20°.
@@ -22,6 +22,8 @@ import { ACTIONS } from "./actions";
 import { BEHAVIORS } from "./behaviors";
 
 const R = Math.random;
+/** Gun muzzle relative to the feet anchor, left-facing (measured on frame 84). */
+const MUZZLE = { x: -42, y: -99 };
 const pose = (image: number, len: number, dx = 0): PoseDef => [image, 64, 128, dx, 0, len];
 const range = (from: number, to: number) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
@@ -82,6 +84,32 @@ const HEISENBERG_ACTIONS: Record<string, ActionDef> = {
   LookAway: hold("SidePose", 100, 150),
   TurnAround: hold("BackPose", 100, 150),
   Crouch: hold("CrouchPose", 100, 150),
+  // Gun: turn toward the cursor, aim, fire three shots with recoil.
+  GunAimPose: act(84),
+  GunRecoilPose: act(85),
+  Gunshot: { type: "builtin", class: "Effect", params: { kind: "gunshot", x: MUZZLE.x, y: MUZZLE.y } },
+  ShootGun: {
+    type: "sequence",
+    actions: [
+      { ref: "Look", params: { lookRight: once(({ m, env }) => m.anchor.x < env.cursor.x) } },
+      { ref: "GunAimPose", params: { duration: once(() => 20 + R() * 20) } },
+      ...[0, 1, 2].flatMap((i) => [
+        { ref: "Gunshot" },
+        { ref: "GunRecoilPose", params: { duration: 3 } },
+        { ref: "GunAimPose", params: { duration: i < 2 ? once(() => 6 + R() * 8) : 30 } },
+      ]),
+    ],
+  },
+
+  // Hard landings: "SLAM IT" impact, then a longer crouch.
+  Falling: {
+    type: "builtin",
+    class: "Fall",
+    params: { resistanceX: 0.05, resistanceY: 0.1, gravity: 2, landEffect: "slam", landMinSpeed: 12 },
+    animations: [{ poses: [pose(4, 250)] }],
+  },
+  Bouncing: { type: "animate", border: "floor", animations: [{ poses: [pose(18, 8), pose(19, 3)] }] },
+
   PointAtCursor: {
     type: "sequence",
     actions: [
@@ -108,6 +136,7 @@ const ACT_BEHAVIORS: [string, number][] = [
   ["LookAway", 20],
   ["TurnAround", 20],
   ["Crouch", 25],
+  ["ShootGun", 35],
 ];
 
 const HEISENBERG_BEHAVIORS: BehaviorDef[] = [
@@ -118,7 +147,7 @@ const HEISENBERG_BEHAVIORS: BehaviorDef[] = [
 export const HEISENBERG = {
   imageBasePath: "/shimeji/heisenberg/",
   imageExt: "webp",
-  imageCount: 83,
+  imageCount: 85,
   imageSize: 256,
   anchorOffset: { x: 64, y: 64 },
   actions: HEISENBERG_ACTIONS,

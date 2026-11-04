@@ -6,6 +6,7 @@
  * images (lookRight) are produced at draw time instead of pre-flipped copies.
  * Each sprite's alpha channel is cached so hit-testing can be pixel-exact.
  */
+import type { EffectSystem } from "./Effects";
 import type { Mascot } from "./Mascot";
 
 export interface RendererOptions {
@@ -91,7 +92,7 @@ export class SpriteRenderer {
     c.height = Math.round(h * dpr);
   }
 
-  render(mascots: readonly Mascot[], scale: number) {
+  render(mascots: readonly Mascot[], scale: number, effects?: EffectSystem) {
     const ctx = this.ctx;
     if (!ctx) return;
     this.resize();
@@ -118,6 +119,7 @@ export class SpriteRenderer {
         ctx.drawImage(img, x, y, d, d);
       }
     }
+    effects?.render(ctx, scale);
   }
 
   /** Top-most mascot with an opaque pixel under the CSS point, if any. */

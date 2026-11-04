@@ -7,7 +7,7 @@ import { type ActionBase, LostGroundError } from "./actions/base";
 import { Animate, Look, Move, Offset, Stay } from "./actions/basic";
 import { Select, Sequence } from "./actions/complex";
 import { Fall, Jump } from "./actions/physics";
-import { Breed, Dragged, FallWithIE, Regist, ThrowIE, WalkWithIE } from "./actions/special";
+import { Breed, Dragged, EmitEffect, FallWithIE, Regist, ThrowIE, WalkWithIE } from "./actions/special";
 import { evalWith, type Params, VariableMap } from "./expr";
 import type { Mascot } from "./Mascot";
 import type { ActionDef, ActionNode, AnimationDef, BehaviorDef } from "./types";
@@ -80,6 +80,8 @@ export class Configuration {
             return new WalkWithIE(vars, anims);
           case "ThrowIE":
             return new ThrowIE(vars, anims);
+          case "Effect":
+            return new EmitEffect(vars);
         }
       }
     }

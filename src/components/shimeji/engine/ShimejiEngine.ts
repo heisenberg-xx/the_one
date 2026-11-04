@@ -9,6 +9,7 @@
  * The loop naturally pauses in background tabs.
  */
 import { BEHAVIOR_CHASE_MOUSE, BEHAVIOR_FALL, Configuration } from "./Behavior";
+import { EffectSystem } from "./Effects";
 import { Environment } from "./Environment";
 import type { Point } from "./geometry";
 import { InteractionController } from "./InteractionController";
@@ -37,13 +38,21 @@ export interface ShimejiEngineOptions {
 }
 
 /** Commands of the original tray / right-click menu. */
-export type ShimejiCommand = "spawn" | "gather" | "reduce" | "dismiss" | "restore";
+export type ShimejiCommand =
+  | "spawn"
+  | "gather"
+  | "reduce"
+  | "dismiss"
+  | "restore"
+  /** Run any behavior by name, e.g. "behavior:ShootGun". */
+  | `behavior:${string}`;
 
 const MAX_CATCHUP_TICKS = 5;
 
 export class ShimejiEngine {
   readonly env: Environment;
   readonly config: Configuration;
+  readonly effects: EffectSystem;
   readonly mascots: Mascot[] = [];
   private readonly renderer: SpriteRenderer;
   private readonly interaction: InteractionController;
@@ -60,6 +69,7 @@ export class ShimejiEngine {
       allowSurfaceThrowing: opts.allowSurfaceThrowing,
     });
     this.config = new Configuration(opts.actions, opts.behaviors, opts.anchorOffset);
+    this.effects = new EffectSystem(this.env);
     this.renderer = new SpriteRenderer({
       basePath: opts.imageBasePath,
       ext: opts.imageExt,
@@ -124,6 +134,19 @@ export class ShimejiEngine {
   }
 
   command(cmd: ShimejiCommand) {
+    if (cmd.startsWith("behavior:")) {
+      const name = cmd.slice("behavior:".length);
+      for (const m of this.mascots) {
+        if (m.dragging) continue;
+        try {
+          m.setBehavior(this.config.buildBehavior(name));
+        } catch (e) {
+          console.warn(`[shimeji] unknown behavior "${name}"`, e);
+          return;
+        }
+      }
+      return;
+    }
     switch (cmd) {
       case "spawn":
         this.spawn();
@@ -138,7 +161,8 @@ export class ShimejiEngine {
         break;
       case "dismiss": // "Dismiss all"
         for (const m of this.mascots.slice()) this.remove(m);
-        this.renderer.render(this.mascots, this.env.scale);
+        this.effects.clear();
+        this.renderer.render(this.mascots, this.env.scale, this.effects);
         break;
       case "restore": // "Restore IE"
         this.env.destroy();
@@ -152,6 +176,7 @@ export class ShimejiEngine {
     for (const m of this.mascots.slice()) {
       if (this.mascots.includes(m)) m.tick();
     }
+    this.effects.tick();
   }
 
   private frame = (now: number) => {
@@ -166,7 +191,7 @@ export class ShimejiEngine {
     }
     if (ticks === MAX_CATCHUP_TICKS) this.acc = 0;
     if (ticks > 0) {
-      this.renderer.render(this.mascots, this.env.scale);
+      this.renderer.render(this.mascots, this.env.scale, this.effects);
       const p = this.interaction.lastMousePosition;
       this.interaction.refreshHover(p?.x ?? null, p?.y ?? null);
     }
