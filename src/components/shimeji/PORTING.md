@@ -119,4 +119,20 @@ actions/behaviors and may override them:
   held-by-cursor swing comes from the idle frame tilted ±10°/±20°. Cloning is
   off (`maxMascots: 1`) because the guide has no art for it.
 
+### Effects (browser addition)
+
+`engine/Effects.ts` is a small particle layer drawn on the same canvas after
+the sprites and advanced on the same 40 ms tick. Actions trigger it in two ways:
+
+- The `Effect` built-in action (`params: { kind, x, y }`, an offset from the
+  feet, mirrored with facing). Heisenberg's `ShootGun` uses it for a muzzle
+  flash, a bullet tracer that sparks at the screen edge, an ejected shell and
+  smoke.
+- `Fall` params `landEffect` / `landMinSpeed`. Heisenberg's `Falling` sets
+  `landEffect: "slam"`, so any landing at ≥ 12 px/tick shows the "SLAM IT!"
+  starburst, shockwave and dust.
+
+Any behavior can be triggered by name for testing:
+`window.dispatchEvent(new CustomEvent("shimeji:command", { detail: "behavior:ShootGun" }))`.
+
 To mark an element as a climbable "window", add `data-shimeji-surface` to it. The Skills icon dock is marked now. Spider-Man walks on its top, hangs underneath it, climbs its sides and jumps between it and the viewport walls.

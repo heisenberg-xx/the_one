@@ -66,7 +66,10 @@ export class EffectSystem {
       }
     } else {
       p.push({ t: "burst", x, y, age: 0, life: 12, seed: Math.random() * 1000 });
-      p.push({ t: "text", x, y: y - 120, text: "SLAM IT!", age: 0, life: 32 });
+      // keep the pop-up text inside the viewport when landing near a wall
+      const wa = this.env.workArea;
+      const tx = Math.min(Math.max(x, wa.left + 95), wa.right - 95);
+      p.push({ t: "text", x: tx, y: y - 120, text: "SLAM IT!", age: 0, life: 32 });
       for (let i = 0; i < 10; i++) {
         const side = i % 2 === 0 ? 1 : -1;
         p.push({
@@ -178,10 +181,14 @@ export class EffectSystem {
           break;
         }
         case "smoke": {
-          ctx.globalAlpha = 0.35 * (1 - k);
-          ctx.fillStyle = "#d8d8dc";
+          const r = q.r * s;
+          const g = ctx.createRadialGradient(q.x * s, q.y * s, 0, q.x * s, q.y * s, r);
+          g.addColorStop(0, "rgba(225,225,230,0.55)");
+          g.addColorStop(1, "rgba(225,225,230,0)");
+          ctx.globalAlpha = 1 - k;
+          ctx.fillStyle = g;
           ctx.beginPath();
-          ctx.arc(q.x * s, q.y * s, q.r * s, 0, Math.PI * 2);
+          ctx.arc(q.x * s, q.y * s, r, 0, Math.PI * 2);
           ctx.fill();
           break;
         }
