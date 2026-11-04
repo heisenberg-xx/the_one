@@ -7,6 +7,7 @@ import { Typewriter } from "react-simple-typewriter";
 import { url } from "inspector";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 const works = [
   {
@@ -220,7 +221,10 @@ export const Works = () => {
                 onClick={() =>
                   setHovered((prev) => (prev === index ? null : index))
                 }
-                className="md:w-30 md:h-15 w-20 h-15 relative"
+                className={clsx(
+                  "md:w-30 md:h-15 w-20 h-15 relative cursor-pointer",
+                  index === hovered && "bg-primary/10  border-primary/20 border rounded-md",
+                )}
                 initial={{ opacity: 0, scale: 0.4, y: 50 }}
                 whileInView={{
                   opacity: 1,
