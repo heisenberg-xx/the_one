@@ -1,18 +1,14 @@
 /**
  * Browser-side settings that have no equivalent in the original XML
- * (or that replace hard-coded desktop values).
+ * (or that replace hard-coded desktop values). Sprite settings live in the
+ * character definitions (config/characters.ts).
  */
 export interface ShimejiSettings {
-  /** Public folder holding shime1.png … shime46.png. */
-  imageBasePath: string;
-  imageCount: number;
-  /** Native sprite size (all original sprites are 128×128). */
-  imageSize: number;
   /** Simulation step. The original Manager ticks every 40 ms – keep it. */
   tickMs: number;
   /** Mascots created on mount. */
   initialCount: number;
-  /** Replaces the original `totalCount < 50` breeding cap. */
+  /** Replaces the original `totalCount < 50` breeding cap (characters may lower it). */
   maxMascots: number;
   /**
    * CSS px per world px. The XML uses absolute desktop pixel values
@@ -24,7 +20,7 @@ export interface ShimejiSettings {
   zIndex: number;
   /** Elements that act like the original's "active IE window". null = none. */
   surfaceSelector: string | null;
-  /** Let Spider-Man pick up and throw surface elements (moves page content!). */
+  /** Let the mascot pick up and throw surface elements (moves page content!). */
   allowSurfaceThrowing: boolean;
   /** Alpha (0-255) above which a sprite pixel can be grabbed. */
   hitAlphaThreshold: number;
@@ -33,9 +29,6 @@ export interface ShimejiSettings {
 }
 
 export const SHIMEJI_CONFIG: ShimejiSettings = {
-  imageBasePath: "/shimeji/spiderman/",
-  imageCount: 46,
-  imageSize: 128,
   tickMs: 40,
   initialCount: 1,
   maxMascots: 5,

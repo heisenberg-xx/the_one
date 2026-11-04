@@ -25,7 +25,9 @@ export class Configuration {
 
   constructor(
     private readonly actions: Readonly<Record<string, ActionDef>>,
-    behaviors: readonly BehaviorDef[]
+    behaviors: readonly BehaviorDef[],
+    /** Added to every pose anchor (for sprite sets drawn on a larger canvas). */
+    private readonly anchorOffset: { x: number; y: number } = { x: 0, y: 0 }
   ) {
     for (const b of behaviors) this.behaviors.set(b.name, b);
   }
@@ -42,6 +44,7 @@ export class Configuration {
     const params: Params = { ...def.params, ...overrides };
     if ("border" in def && def.border && !("border" in params)) params.border = def.border;
     const vars = new VariableMap(params);
+    const toAnimations = (defs: readonly AnimationDef[]) => this.toAnimations(defs);
 
     switch (def.type) {
       case "sequence":
@@ -80,6 +83,13 @@ export class Configuration {
         }
       }
     }
+  }
+
+  private toAnimations(defs: readonly AnimationDef[]): Animation[] {
+    const { x: ox, y: oy } = this.anchorOffset;
+    return defs.map(
+      (a) => new Animation(a.condition, a.poses.map((p) => new Pose(p[0], p[1] + ox, p[2] + oy, p[3], p[4], p[5])))
+    );
   }
 
   /* ----------------------------- BehaviorBuilder ----------------------------- */
@@ -125,12 +135,6 @@ export class Configuration {
     }
     return this.buildBehavior(candidates[candidates.length - 1].name);
   }
-}
-
-function toAnimations(defs: readonly AnimationDef[]): Animation[] {
-  return defs.map(
-    (a) => new Animation(a.condition, a.poses.map((p) => new Pose(p[0], p[1], p[2], p[3], p[4], p[5])))
-  );
 }
 
 /* --------------------------------- UserBehavior ------------------------------- */

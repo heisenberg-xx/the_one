@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { ACTIONS } from "./config/actions";
-import { BEHAVIORS } from "./config/behaviors";
+import { type CharacterDef, CHARACTERS, type CharacterName } from "./config/characters";
 import { SHIMEJI_CONFIG, type ShimejiSettings } from "./config/shimeji.config";
 import { type ShimejiCommand, ShimejiEngine } from "./engine/ShimejiEngine";
+
+type Props = Partial<Omit<ShimejiSettings, "scale">> & {
+  /** Which sprite set + behavior config to run. */
+  character?: CharacterName;
+};
 
 /**
  * Mounts the ported Shimeji engine as a fixed, click-through overlay.
@@ -14,14 +18,18 @@ import { type ShimejiCommand, ShimejiEngine } from "./engine/ShimejiEngine";
  *   window.dispatchEvent(new CustomEvent("shimeji:command", { detail: "gather" }))
  *   detail: "spawn" | "gather" | "reduce" | "dismiss" | "restore"
  */
-export default function SpiderManShimeji(props: Partial<ShimejiSettings>) {
+export default function Shimeji({ character = "heisenberg", ...overrides }: Props) {
   useEffect(() => {
-    const settings: ShimejiSettings = { ...SHIMEJI_CONFIG, ...props };
+    const settings: ShimejiSettings = { ...SHIMEJI_CONFIG, ...overrides };
     if (settings.respectReducedMotion && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
-
-    const engine = new ShimejiEngine({ ...settings, actions: ACTIONS, behaviors: BEHAVIORS });
+    const def: CharacterDef = CHARACTERS[character];
+    const engine = new ShimejiEngine({
+      ...settings,
+      ...def,
+      maxMascots: Math.min(settings.maxMascots, def.maxMascots ?? Infinity),
+    });
 
     // Start when the browser is idle so the sprites never compete with page load.
     // Call through `window` – detached references throw "Illegal invocation".
@@ -48,7 +56,7 @@ export default function SpiderManShimeji(props: Partial<ShimejiSettings>) {
     };
     // Settings are read once on mount, like the original's config loading.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [character]);
 
   return null;
 }

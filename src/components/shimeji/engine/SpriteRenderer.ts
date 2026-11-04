@@ -10,6 +10,7 @@ import type { Mascot } from "./Mascot";
 
 export interface RendererOptions {
   basePath: string;
+  ext: string;
   imageCount: number;
   imageSize: number;
   zIndex: number;
@@ -28,7 +29,7 @@ export class SpriteRenderer {
   constructor(private readonly opts: RendererOptions) {}
 
   async load(): Promise<void> {
-    const { basePath, imageCount, imageSize } = this.opts;
+    const { basePath, ext, imageCount, imageSize } = this.opts;
     const scratch = document.createElement("canvas");
     scratch.width = scratch.height = imageSize;
     const sctx = scratch.getContext("2d", { willReadFrequently: true });
@@ -38,7 +39,7 @@ export class SpriteRenderer {
         const n = i + 1;
         const img = new Image();
         img.decoding = "async";
-        img.src = `${basePath}shime${n}.png`;
+        img.src = `${basePath}shime${n}.${ext}`;
         try {
           await img.decode();
         } catch {

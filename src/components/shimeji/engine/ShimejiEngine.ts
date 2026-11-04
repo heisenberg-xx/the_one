@@ -20,8 +20,12 @@ export interface ShimejiEngineOptions {
   actions: Readonly<Record<string, ActionDef>>;
   behaviors: readonly BehaviorDef[];
   imageBasePath: string;
+  /** File extension of the sprites, e.g. "png" or "webp". */
+  imageExt: string;
   imageCount: number;
   imageSize: number;
+  /** Added to every pose anchor (sprite sets drawn on a larger canvas). */
+  anchorOffset: { x: number; y: number };
   tickMs: number;
   initialCount: number;
   maxMascots: number;
@@ -55,9 +59,10 @@ export class ShimejiEngine {
       surfaceSelector: opts.surfaceSelector,
       allowSurfaceThrowing: opts.allowSurfaceThrowing,
     });
-    this.config = new Configuration(opts.actions, opts.behaviors);
+    this.config = new Configuration(opts.actions, opts.behaviors, opts.anchorOffset);
     this.renderer = new SpriteRenderer({
       basePath: opts.imageBasePath,
+      ext: opts.imageExt,
       imageCount: opts.imageCount,
       imageSize: opts.imageSize,
       zIndex: opts.zIndex,

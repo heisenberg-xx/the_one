@@ -100,8 +100,23 @@ Win32 layer (JNA): translucent windows, IE window enumeration/moving, cursor pol
 ## Usage
 
 ```tsx
-<SpiderManShimeji />                                // mounted in app/layout.tsx
-<SpiderManShimeji maxMascots={1} allowSurfaceThrowing />  // overrides from config/shimeji.config.ts
+<Shimeji character="heisenberg" />                 // mounted in app/layout.tsx
+<Shimeji character="spiderman" maxMascots={1} />   // the original set; overrides from config/shimeji.config.ts
 ```
+
+### Characters
+
+`config/characters.ts` registers sprite sets. A character reuses the ported
+actions/behaviors and may override them:
+
+- **spiderman**: the original 46 PNGs, 128×128, config exactly as the XML.
+- **heisenberg** (`config/heisenberg.ts`): 83 WebP frames (≈400 KB) cut from
+  `heisenberg_animation_overview.png` onto a 256×256 canvas (anchors shifted
+  +64,+64). It keeps slots 1–46 with the same pose meanings and adds frames
+  47–83 for the guide's full idle/walk/run cycles plus 14 new floor behaviors
+  from its "Actions / Interactions" and "Special Poses" rows. Wall and ceiling
+  poses are derived from the walk frames (rotated 90° / upside-down), and the
+  held-by-cursor swing comes from the idle frame tilted ±10°/±20°. Cloning is
+  off (`maxMascots: 1`) because the guide has no art for it.
 
 To mark an element as a climbable "window", add `data-shimeji-surface` to it. The Skills icon dock is marked now. Spider-Man walks on its top, hangs underneath it, climbs its sides and jumps between it and the viewport walls.
