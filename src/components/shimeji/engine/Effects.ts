@@ -7,7 +7,7 @@
  */
 import type { Environment } from "./Environment";
 
-export type EffectKind = "gunshot" | "slam";
+export type EffectKind = "gunshot" | "slam" | "poof";
 
 type Particle =
   | { t: "flash"; x: number; y: number; dir: number; age: number; life: number }
@@ -17,7 +17,9 @@ type Particle =
   | { t: "smoke"; x: number; y: number; vx: number; vy: number; r: number; age: number; life: number }
   | { t: "burst"; x: number; y: number; age: number; life: number; seed: number }
   | { t: "dust"; x: number; y: number; vx: number; vy: number; r: number; age: number; life: number }
-  | { t: "text"; x: number; y: number; text: string; age: number; life: number };
+  | { t: "text"; x: number; y: number; text: string; age: number; life: number }
+  | { t: "puff"; x: number; y: number; vx: number; vy: number; r: number; age: number; life: number }
+  | { t: "sparkle"; x: number; y: number; vx: number; vy: number; age: number; life: number };
 
 const MAX_PARTICLES = 120;
 const BULLET_SPEED = 48;
@@ -63,6 +65,21 @@ export class EffectSystem {
           age: 0,
           life: 22 + i * 4,
         });
+      }
+    } else if (kind === "poof") {
+      // costume change: a ball of smoke that hides the swap, plus a few sparkles
+      for (let i = 0; i < 14; i++) {
+        const a = (i / 14) * Math.PI * 2 + Math.random() * 0.4;
+        const sp = 1.2 + Math.random() * 2.2;
+        p.push({
+          t: "puff", x: x + Math.cos(a) * 10, y: y + Math.sin(a) * 14,
+          vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * 0.8 - 0.4,
+          r: 14 + Math.random() * 12, age: 0, life: 14 + Math.random() * 8,
+        });
+      }
+      for (let i = 0; i < 6; i++) {
+        const a = Math.random() * Math.PI * 2;
+        p.push({ t: "sparkle", x, y, vx: Math.cos(a) * 4, vy: Math.sin(a) * 4 - 1, age: 0, life: 12 + Math.random() * 6 });
       }
     } else {
       p.push({ t: "burst", x, y, age: 0, life: 12, seed: Math.random() * 1000 });
@@ -113,13 +130,21 @@ export class EffectSystem {
           }
           break;
         }
+        case "sparkle": {
+          q.x += q.vx;
+          q.y += q.vy;
+          q.vx *= 0.9;
+          q.vy *= 0.9;
+          break;
+        }
+        case "puff":
         case "smoke":
         case "dust": {
           q.x += q.vx;
           q.y += q.vy;
           q.vx *= 0.9;
           q.vy *= 0.92;
-          q.r += q.t === "smoke" ? 0.8 : 0.6;
+          q.r += q.t === "smoke" ? 0.8 : q.t === "puff" ? 1.1 : 0.6;
           break;
         }
       }
@@ -197,6 +222,35 @@ export class EffectSystem {
           ctx.fillStyle = "#9a948c";
           ctx.beginPath();
           ctx.arc(q.x * s, q.y * s, q.r * s, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        }
+        case "puff": {
+          const r = q.r * s;
+          const g = ctx.createRadialGradient(q.x * s - r * 0.3, q.y * s - r * 0.3, r * 0.1, q.x * s, q.y * s, r);
+          g.addColorStop(0, "rgba(250,250,252,0.95)");
+          g.addColorStop(0.7, "rgba(205,208,216,0.85)");
+          g.addColorStop(1, "rgba(180,184,194,0)");
+          ctx.globalAlpha = k < 0.55 ? 1 : 1 - (k - 0.55) / 0.45;
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(q.x * s, q.y * s, r, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        }
+        case "sparkle": {
+          const r = (6 - k * 4) * s;
+          ctx.translate(q.x * s, q.y * s);
+          ctx.rotate(k * 2);
+          ctx.globalAlpha = 1 - k;
+          ctx.fillStyle = "#ffe27a";
+          ctx.beginPath();
+          for (let i = 0; i < 8; i++) {
+            const rr = i % 2 === 0 ? r : r * 0.3;
+            const a = (i / 8) * Math.PI * 2;
+            ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr);
+          }
+          ctx.closePath();
           ctx.fill();
           break;
         }

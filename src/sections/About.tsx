@@ -12,7 +12,10 @@ const About = () => {
         id="about"
         className="relative w-screen md:h-[86dvh] h-[75vh] flex justify-center items-center border-b border-primary/20 "
       >
-        <div className="relative md:w-[77%] w-[85%] md:text-lg text-sm text-secondary space-y-5 leading-relaxed md:ml-0 ml-5">
+        <div
+          data-mascot-spot="about"
+          className="relative md:w-[77%] w-[85%] md:text-lg text-sm text-secondary space-y-5 leading-relaxed md:ml-0 ml-5"
+        >
           {/* OPENING QUOTE */}
           <motion.span
             initial={{ opacity: 0, y: 90 }}

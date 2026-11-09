@@ -2,6 +2,7 @@ import type { ActionDef, BehaviorDef } from "../engine/types";
 import { ACTIONS } from "./actions";
 import { BEHAVIORS } from "./behaviors";
 import { HEISENBERG } from "./heisenberg";
+import { RAJESH } from "./rajesh";
 
 export interface CharacterDef {
   imageBasePath: string;
@@ -27,6 +28,7 @@ export const CHARACTERS = {
     behaviors: BEHAVIORS,
   },
   heisenberg: HEISENBERG,
+  rajesh: RAJESH,
 } satisfies Record<string, CharacterDef>;
 
 export type CharacterName = keyof typeof CHARACTERS;

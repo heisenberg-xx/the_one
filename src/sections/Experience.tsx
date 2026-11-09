@@ -61,6 +61,7 @@ export default function Experience() {
         <div className="hidden md:block w-[70%]">
           <div className="relative ">
             <motion.div
+              data-mascot-spot="experience"
               className="absolute top-1/3 left-7  h-1 bg-primary/40 origin-left rounded-md"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -167,6 +168,7 @@ export default function Experience() {
                 </div>
 
                 <motion.div
+                  data-mascot-spot={i === 0 ? "experience" : undefined}
                   initial={{ opacity: 0, y: 20, scale: 0.9, rotateZ: 0 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1, rotateZ: -2 }}
                   viewport={{ once: true }}

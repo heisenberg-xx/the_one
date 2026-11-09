@@ -37,7 +37,7 @@ const HeroSection = () => {
             </h1>
 
             <h2 className="font-ultra text-4xl md:text-6xl text-primary/80 uppercase">
-              Rajesh Ande
+              <span data-mascot-spot="hero">Rajesh</span> Ande
             </h2>
 
             <p className="text-secondary lowercase text-base md:text-xl">

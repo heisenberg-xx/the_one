@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={`font-light antialiased overflow-x-hidden min-h-screen`}>
         <NavBar />
         {children}
-        <Shimeji character="heisenberg" respectReducedMotion={false} />
+        <Shimeji character="rajesh" respectReducedMotion={false} />
       </body>
     </html>
   );
