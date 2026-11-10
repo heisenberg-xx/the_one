@@ -100,8 +100,9 @@ Win32 layer (JNA): translucent windows, IE window enumeration/moving, cursor pol
 ## Usage
 
 ```tsx
-<Shimeji character="heisenberg" />                 // mounted in app/layout.tsx
-<Shimeji character="spiderman" maxMascots={1} />   // the original set; overrides from config/shimeji.config.ts
+// app/layout.tsx — switch characters by changing SHIMEJI_CHARACTER
+const SHIMEJI_CHARACTER: CharacterName = "rajesh"; // "heisenberg" | "rajesh" | "spiderman"
+<Shimeji character={SHIMEJI_CHARACTER} />           // overrides from config/shimeji.config.ts
 ```
 
 ### Characters

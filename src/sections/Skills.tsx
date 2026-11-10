@@ -169,7 +169,7 @@ export default function Skills() {
 
   return (
     <Element name="skills">
-      <section className="w-screen md:h-[86dvh] h-[60vh] flex flex-col items-center justify-center gap-4 md:scroll-mt-24 border-b border-primary/20">
+      <section className="w-screen md:h-[86dvh] h-[70vh] flex flex-col items-center justify-center gap-4 md:scroll-mt-24 border-b border-primary/20">
         <h1 className="text-primary text-lg md:text-xl  tracking-wider mb-20">
           <Typewriter
             words={["What I build with,"]}
@@ -198,6 +198,7 @@ export default function Skills() {
         {/* ICON GRID */}
         <motion.div
           data-shimeji-surface
+          data-mascot-spot="skills"
           className="md:flex hidden gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -264,7 +265,8 @@ export default function Skills() {
 
         <motion.div
           data-shimeji-surface
-          className="md:hidden grid grid-cols-5 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
+          data-mascot-spot="skills"
+          className="md:hidden grid grid-cols-4 gap-7 px-6 py-4 rounded-2xl bg-primary/5 backdrop-blur-md border border-primary"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}

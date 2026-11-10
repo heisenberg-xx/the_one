@@ -3,8 +3,8 @@
 @import 'tailwind-scrollbar-hide/v4';
 
 :root {
-  /* --primary: #8BAE66; */
-  --primary: #C45508;
+  --primary: #8BAE66;
+  /* --primary: #C45508; */
   --secondary: #efefef;
   --radius: 0.625rem;
   --background: #0c0c0c;
