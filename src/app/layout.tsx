@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Shimeji from "@/components/shimeji/Shimeji";
+import type { CharacterName } from "@/components/shimeji/config/characters";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+/** Desktop pet shown on the site — change to "heisenberg" | "rajesh" | "spiderman". */
+const SHIMEJI_CHARACTER: CharacterName = "rajesh";
 
 export const metadata: Metadata = {
   title: "rajesh ande",
@@ -27,10 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-light antialiased overflow-x-hidden min-h-screen`}>
+      <body className="font-light antialiased overflow-x-hidden min-h-screen">
         <NavBar />
         {children}
-        <Shimeji character="rajesh" respectReducedMotion={false} />
+        <Shimeji character={SHIMEJI_CHARACTER} respectReducedMotion={false} />
       </body>
     </html>
   );

@@ -66,7 +66,13 @@ const RAJESH_ACTIONS: Record<string, ActionDef> = {
     border: "floor",
     animations: [{ poses: [pose(63, 8, -8), pose(20, 4, -4), pose(20, 4, -2), pose(20, 12), pose(64, 45)] }],
   },
-  Creep: { type: "move", border: "floor", animations: [{ poses: [pose(68, 10), pose(68, 6, -2), pose(68, 6, -1), pose(68, 10)] }] },
+  // crawl: the one crawl pose + in-betweens 121-124 (reach, stretch, dip, hip lift), moving in
+  // small even steps instead of sliding in bursts
+  Creep: {
+    type: "move",
+    border: "floor",
+    animations: [{ poses: [pose(68, 4, -1), pose(121, 4, -1), pose(122, 4, -1), pose(68, 4, -1), pose(123, 4, -1), pose(124, 4, -1)] }],
+  },
   // held by the cursor: hanging frames instead of the standing frame
   Pinched: {
     type: "builtin",
@@ -132,7 +138,8 @@ const RAJESH_ACTIONS: Record<string, ActionDef> = {
 
   // ---- costume skits (poof in, perform, poof out)
   VigIdle: act([83, 250]),
-  VigWalk: { type: "move", border: "floor", animations: [{ poses: [pose(84, 6, -3), pose(85, 6, -3)] }] },
+  // stride (84/85) → up-beat in-between (125/126)
+  VigWalk: { type: "move", border: "floor", animations: [{ poses: [pose(84, 4, -3), pose(125, 3, -3), pose(85, 4, -3), pose(126, 3, -3)] }] },
   VigCrouch: act([86, 250]),
   VigGrapple: act([87, 250]),
   VigLand: act([89, 250]),
@@ -163,7 +170,12 @@ const RAJESH_ACTIONS: Record<string, ActionDef> = {
   LabBreakSkit: seq(poof, hold("LabCoffee", 150, 150), hold("LabLaptop", 200, 200), poof, { ref: "Stand", params: { duration: 10 } }),
 
   NoirIdle: act([101, 250]),
-  NoirWalk: { type: "move", border: "floor", animations: [{ poses: [pose(110, 250, -2)] }] },
+  // the one walking pose (110) as a 6-beat strut with in-betweens 127-130
+  NoirWalk: {
+    type: "move",
+    border: "floor",
+    animations: [{ poses: [pose(110, 4, -2), pose(127, 4, -2), pose(128, 3, -2), pose(110, 4, -2), pose(129, 4, -2), pose(130, 3, -2)] }],
+  },
   NoirTipHat: act([102, 250]),
   NoirCigar: act([103, 250]),
   NoirMap: act([104, 250]),
@@ -239,7 +251,7 @@ const RAJESH_BEHAVIORS: BehaviorDef[] = [
 export const RAJESH = {
   imageBasePath: "/shimeji/rajesh/",
   imageExt: "webp",
-  imageCount: 120,
+  imageCount: 130,
   imageSize: 320,
   anchorOffset: { x: 96, y: 96 },
   actions: RAJESH_ACTIONS,
