@@ -10,7 +10,7 @@ const About = () => {
     <Element name="about">
       <section
         id="about"
-        className="relative w-screen md:h-[86dvh] h-[75vh] flex justify-center items-center border-b border-primary/20 "
+        className="relative w-screen md:h-[86dvh] h-[90vh] flex justify-center items-center border-b border-primary/20 "
       >
         <div
           data-mascot-spot="about"

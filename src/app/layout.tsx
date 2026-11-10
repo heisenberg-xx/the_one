@@ -5,7 +5,7 @@ import Shimeji from "@/components/shimeji/Shimeji";
 import type { CharacterName } from "@/components/shimeji/config/characters";
 
 /** Desktop pet shown on the site — change to "heisenberg" | "rajesh" | "spiderman". */
-const SHIMEJI_CHARACTER: CharacterName = "rajesh";
+const SHIMEJI_CHARACTER: CharacterName = "spiderman";
 
 export const metadata: Metadata = {
   title: "rajesh ande",

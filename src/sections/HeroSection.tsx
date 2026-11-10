@@ -31,12 +31,12 @@ const HeroSection = () => {
         <div className="relative z-20 h-full flex flex-col justify-between md:justify-between items-center px-4 md:px-6 pt-6 md:pt-4 
         md:pb-0">
           {/* Top Text */}
-          <div className="space-y-2 md:space-y-3 text-center md:text-left max-w-xl">
-            <h1 className="font-light text-2xl md:text-4xl text-secondary">
+          <div className="space-y-2 md:space-y-3 text-center md:text-left max-w-2xl">
+            <h1 className="font-light text-3xl md:text-5xl text-secondary">
               Hey There, I'm
             </h1>
 
-            <h2 className="font-ultra text-4xl md:text-6xl text-primary/80 uppercase">
+            <h2 className="font-ultra text-5xl md:text-8xl text-primary/80 uppercase">
               <span data-mascot-spot="hero">Rajesh</span> Ande
             </h2>
 

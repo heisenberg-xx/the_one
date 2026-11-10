@@ -205,7 +205,7 @@ export const Works = () => {
   const [hovered, setHovered] = React.useState<number | null>(null);
   return (
     <Element name="works">
-      <section className="w-screen md:h-[86dvh] h-[80vh] flex  flex-col-reverse  items-center justify-center  md:scroll-mt-24 mb-10 border-b border-primary/20">
+      <section className="w-screen md:h-[86dvh] h-[95vh] flex  flex-col-reverse  items-center justify-center  md:scroll-mt-24 mb-10 border-b border-primary/20">
         {/* <div className="flex  p-5 justify-center gap-20 items-center flex-wrap   "> */}
         <div
           data-mascot-spot="projects"
